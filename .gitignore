@@ -5,6 +5,7 @@
 coverage
 InstalledFiles
 lib/bundler/man
+/log/*.log
 pkg
 rdoc
 spec/reports
@@ -16,3 +17,4 @@ tmp
 .yardoc
 _yardoc
 doc/
+/Gemfile.lock

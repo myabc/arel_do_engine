@@ -1,2 +1,2 @@
-arel_do_engine
-==============
+# DataObjects Engine for Arel
+
