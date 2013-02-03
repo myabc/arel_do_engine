@@ -4,5 +4,5 @@ Devtools.init
 
 namespace :spec do
   desc 'Run specs on Travis'
-  task :travis => %w[ spec:unit ]
+  task :travis => %w(spec:unit spec:integration)
 end
