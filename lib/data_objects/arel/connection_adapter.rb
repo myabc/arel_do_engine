@@ -77,11 +77,6 @@ module DataObjects
         end
       end
 
-      def column_definitions(table_name) #:nodoc:
-        raise NotImplementedError
-        nil
-      end
-
       def schema_search_path
         @schema_search_path ||= begin
           with_connection do |connection|
