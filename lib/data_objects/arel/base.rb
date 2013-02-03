@@ -11,7 +11,7 @@ module DataObjects
 
       def self.connection
         raise ConnectionNotEstablished, 'DataObjects::Arel::Base.establish_connection has not yet been called.' unless defined?(@@uri)
-        @connection = Connection.new(@@uri)
+        @connection = ConnectionAdapter.new(@@uri)
         @connection
       end
 

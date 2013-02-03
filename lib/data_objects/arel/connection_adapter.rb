@@ -3,7 +3,7 @@ module DataObjects
     class Column < Struct.new(:name, :type)
     end
 
-    class Connection
+    class ConnectionAdapter
       attr_accessor :visitor
       attr_reader   :uri
 

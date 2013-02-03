@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe DataObjects::Arel::Connection do
+describe DataObjects::Arel::ConnectionAdapter do
 
   subject   { described_class.new(uri) }
   let(:uri) { Addressable::URI.parse('test://test@127.0.0.1/test') }
