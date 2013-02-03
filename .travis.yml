@@ -1,0 +1,21 @@
+language: ruby
+before_install: gem install bundler
+bundler_args: --without guard metrics
+script: "bundle exec rake spec"
+rvm:
+  - 1.8.7
+  - ree
+  - 1.9.2
+  - 1.9.3
+  - 2.0.0
+  - jruby-18mode
+  - jruby-19mode
+  - jruby-head
+  - rbx-18mode
+  - rbx-19mode
+  - ruby-head
+before_script:
+  - psql -c 'create database "arel_do_engine_test";' -U postgres
+notifications:
+  email:
+    - alex@alexbcoles.com
