@@ -8,10 +8,6 @@ module DataObjects
       attr_reader   :uri
 
       def initialize(uri)
-        # @primary_keys = {
-        #   'users' => 'id',
-        #   'products' => 'id'
-        # }
         @uri = uri
       end
 
@@ -60,6 +56,24 @@ module DataObjects
           }
           reader.close
           columns
+        end
+      end
+
+      def primary_key(table)
+        with_connection do |connection|
+          command = connection.create_command(<<-SQL)
+            SELECT attr.attname
+            FROM   pg_attribute attr
+            INNER JOIN pg_constraint cons ON attr.attrelid = cons.conrelid AND attr.attnum = cons.conkey[1]
+            WHERE cons.contype = 'p'
+              AND cons.conrelid = '#{quote_table_name(table)}'::regclass
+          SQL
+          reader  = command.execute_reader
+          reader.next!
+          row = reader.values
+          reader.close
+
+          row && row.first
         end
       end
 

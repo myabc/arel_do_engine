@@ -11,7 +11,15 @@ def setup_db
 
   connection = DataObjects::Connection.new(CONFIG['postgres'])
 
+  connection.create_command('DROP TABLE IF EXISTS "laptops"').execute_non_query
   connection.create_command('DROP TABLE IF EXISTS "users"').execute_non_query
+
+  connection.create_command(<<-SQL.gsub(/\s+/, ' ').strip).execute_non_query
+    CREATE TABLE "laptops"
+      ( "hardware_id"    SERIAL      NOT NULL PRIMARY KEY,
+        "product_name"   VARCHAR(50) NOT NULL
+      )
+  SQL
 
   connection.create_command(<<-SQL.gsub(/\s+/, ' ').strip).execute_non_query
     CREATE TABLE "users"
