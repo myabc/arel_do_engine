@@ -3,11 +3,6 @@ require 'spec_helper'
 describe DataObjects::Arel::ConnectionAdapter, '#delete' do
   include_context 'connection adapters'
 
-  # context 'with the wrong number of arguments' do
-  #   specify { expect{subject.delete}.to raise_error(ArgumentError) }
-  # end
-
-  context 'called correctly' do
     let(:statement)     { %q(DELETE FROM "ebooks" WHERE "ebooks"."author" = 'Orwell') }
     let(:affected_rows) { 1984 }
     let(:delete_manager) do
@@ -35,6 +30,5 @@ describe DataObjects::Arel::ConnectionAdapter, '#delete' do
         expect(subject.delete(delete_manager)).to be(1984)
       end
     end
-  end
 
 end
