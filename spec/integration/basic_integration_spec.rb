@@ -13,7 +13,7 @@ describe 'Basic integraton with Arel' do
   context 'a table that does not exist' do
     it 'should raise a DataObjects Error' do
       relation  = Arel::Table.new(:non_existent)
-      expect { relation.columns }.to raise_error(DataObjects::SyntaxError)
+      expect { relation.columns }.to raise_error(DataObjects::SQLError)
     end
   end
 
