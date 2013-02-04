@@ -44,36 +44,41 @@ module DataObjects
         self
       end
 
-      def insert(sql, name = nil)
+      def insert(arel, name = nil, pk = nil, id_value = nil, sequence_name = nil, binds = [])
         with_connection do |connection|
-          # FIXME: Why DO we need to call #to_sql here?
-          command = connection.create_command(sql.to_sql)
-          command.execute_non_query
+          command   = connection.create_command(to_sql(arel))
+          insert_id = command.execute_non_query
         end
+        id_value
       end
 
-      def delete(sql, name = nil)
+      def delete(arel, name = nil, binds = [])
         with_connection do |connection|
-          # FIXME: Why DON'T we need to call #to_sql here?
-          command = connection.create_command(sql)
-          result  = command.execute_non_query
-          result.affected_rows
-        end
+          connection.create_command(to_sql(arel)).execute_non_query
+        end.affected_rows
       end
 
-      def update(sql, name = nil)
+      def update(arel, name = nil, binds = [])
         with_connection do |connection|
-          # FIXME: Why DO we need to call #to_sql here?
-          command = connection.create_command(sql.to_sql)
-          result  = command.execute_non_query
-          result.affected_rows
-        end
+          connection.create_command(to_sql(arel)).execute_non_query
+        end.affected_rows
       end
 
-      def execute(sql)
+      def execute(sql, name = nil)
         with_connection do |connection|
           command = connection.create_command(sql)
           command.execute_reader
+        end
+      end
+
+      # Converts Arel AST to SQL
+      def to_sql(arel, binds = [])
+        if arel.respond_to?(:ast)
+          visitor.accept(arel.ast) do
+            quote(*binds.shift.reverse)
+          end
+        else
+          arel
         end
       end
 
