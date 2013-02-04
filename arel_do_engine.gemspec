@@ -15,4 +15,5 @@ Gem::Specification.new do |gem|
 
   gem.add_dependency 'arel',         '~> 3.0'
   gem.add_dependency 'data_objects', '~> 0.10.10'
+  gem.add_dependency 'abstract_type','~> 0.0.2'
 end
