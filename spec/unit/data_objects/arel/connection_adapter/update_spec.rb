@@ -15,8 +15,8 @@ describe DataObjects::Arel::ConnectionAdapter, '#update' do
 
   before do
     command.should_receive(:execute_non_query).and_return(result)
-    connection.should_receive(:create_command).with(an_instance_of(String))
-                                              .and_return(command)
+    connection.should_receive(:create_command).with(an_instance_of(String)).
+                                               and_return(command)
   end
 
   context 'with a SQL statement' do

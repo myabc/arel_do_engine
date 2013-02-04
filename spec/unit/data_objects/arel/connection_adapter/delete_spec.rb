@@ -15,8 +15,8 @@ describe DataObjects::Arel::ConnectionAdapter, '#delete' do
 
     before do
       command.should_receive(:execute_non_query).and_return(result)
-      connection.should_receive(:create_command).with(statement)
-                                                .and_return(command)
+      connection.should_receive(:create_command).with(statement).
+                                                 and_return(command)
     end
 
     context 'with a SQL statement' do
